@@ -9,6 +9,9 @@
         public int CategoryId { get; set; }
         public DateTime CreateDate { get; set; }
 
+        public virtual Category Category { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
 
     }
 }
