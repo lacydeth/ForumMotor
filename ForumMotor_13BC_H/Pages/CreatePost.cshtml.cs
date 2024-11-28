@@ -11,40 +11,43 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ForumMotor_13BC_H.Pages
 {
-    public class CreateModel : PageModel
+    public class CreatePostModel : PageModel
     {
         private readonly ForumMotor_13BC_H.Data.ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
 
-        public CreateModel(ForumMotor_13BC_H.Data.ApplicationDbContext context, UserManager<User> userManager)
+        public CreatePostModel(ForumMotor_13BC_H.Data.ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
-
+        
+        [BindProperty(SupportsGet = true)]
+        public int TopicId { get; set; }
         public IActionResult OnGet()
         {
+        ViewData["TopicId"] = new SelectList(_context.Topics, "Id", "Id");
         ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Category Category { get; set; } = default!;
+        public Post Post { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            /*
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return Page();
-            }
-            */
-            Category.UserId = _userManager.GetUserId(User);
-            _context.Categories.Add(Category);
+            }*/
+            Post.TopicId = TopicId;
+            Post.UserId = _userManager.GetUserId(User);
+            Post.CreateDate = DateTime.Now;
+            _context.Posts.Add(Post);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage($"./PostList", new {TopicId = TopicId});
         }
     }
 }

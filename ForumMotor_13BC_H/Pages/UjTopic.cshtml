@@ -23,19 +23,7 @@
                 <input asp-for="Topic.Description" class="form-control" />
                 <span asp-validation-for="Topic.Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Topic.UserId" class="control-label"></label>
-                <select asp-for="Topic.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Topic.CategoryId" class="control-label"></label>
-                <select asp-for="Topic.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Topic.CreateDate" class="control-label"></label>
-                <input asp-for="Topic.CreateDate" class="form-control" />
-                <span asp-validation-for="Topic.CreateDate" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
