@@ -24,6 +24,9 @@ namespace ForumMotor_13BC_H.Pages
         
         [BindProperty(SupportsGet = true)]
         public int TopicId { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int PostId { get; set; }
         public IActionResult OnGet()
         {
         ViewData["TopicId"] = new SelectList(_context.Topics, "Id", "Id");
@@ -44,6 +47,7 @@ namespace ForumMotor_13BC_H.Pages
             Post.TopicId = TopicId;
             Post.UserId = _userManager.GetUserId(User);
             Post.CreateDate = DateTime.Now;
+            Post.Reply = PostId;
             _context.Posts.Add(Post);
             await _context.SaveChangesAsync();
 
